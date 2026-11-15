@@ -1,6 +1,7 @@
 import os
 
 import numpy as np
+from sklearn.model_selection import train_test_split
 from skimage import io, transform
 
 IMG_SIZE = (64, 64, 3)
@@ -38,3 +39,15 @@ def load_data(path):
     labels = np.array(labels)
 
     return evidence, labels
+
+
+def split_data(evidence, labels):
+    x_train, x_temp, y_train, y_temp = train_test_split(
+        evidence, labels, test_size=0.30, stratify=labels, random_state=42
+    )
+
+    x_val, x_test, y_val, y_test = train_test_split(
+        x_temp, y_temp, test_size=0.50, stratify=y_temp, random_state=42
+    )
+
+    return x_train, x_val, x_test, y_train, y_val, y_test
