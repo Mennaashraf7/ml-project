@@ -8,3 +8,4 @@ nltk
 seaborn
 notebook
 kagglehub
+scikit-image
