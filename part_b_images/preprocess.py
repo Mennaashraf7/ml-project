@@ -3,12 +3,13 @@ import os
 import numpy as np
 from sklearn.model_selection import train_test_split
 from skimage import io, transform
+from skimage.feature import hog
 
 IMG_SIZE = (64, 64, 3)
 
 
 def load_data(path):
-    images = []
+    features = []
     labels = []
 
     if len(os.listdir(path)) == 1:
@@ -30,12 +31,14 @@ def load_data(path):
 
             image = transform.resize(image, IMG_SIZE)
 
-            image = image.flatten()
+            hog_features = hog(
+                image, pixels_per_cell=(16, 16), cells_per_block=(2, 2), channel_axis=-1
+            )
 
-            images.append(image)
+            features.append(hog_features)
             labels.append(class_name)
 
-    evidence = np.array(images)
+    evidence = np.array(features)
     labels = np.array(labels)
 
     return evidence, labels
