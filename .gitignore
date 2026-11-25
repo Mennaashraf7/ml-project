@@ -1,1 +1,8 @@
 __pycache__/
+*.pyc
+.venv/
+.vscode/
+.ipynb_checkpoints/
+part_c_text/test_*.py
+.DS_Store
+Thumbs.db
